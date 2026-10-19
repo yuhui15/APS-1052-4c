@@ -199,12 +199,12 @@ Both classifiers obtain the list of penalty candidates from the same list, p_rs
 #two separate dicts (one per candidate classifier) so RandomizedSearchCV never has to sample an
 #invalid (penalty, loss, dual) combination for LinearSVC by mixing it with LogisticRegression's grid
 param_grid = [
-    {'classifier': [#####],
-     'classifier__C': #####,
-     'classifier__penalty': #####},
-    {'classifier': [#####],
-     'classifier__C': #####,
-     'classifier__penalty': #####},
+    {'classifier': [LogisticRegression(max_iter=1000, solver='liblinear')],
+     'classifier__C': c_rs,
+     'classifier__penalty': p_rs},
+    {'classifier': [LinearSVC(max_iter=10000, loss='squared_hinge', dual=False)],
+     'classifier__C': c_rs,
+     'classifier__penalty': p_rs},
 ]
 
 #when using smoother, use TimesSeriesSplit
@@ -397,4 +397,3 @@ for item in importance_plot.get_xticklabels(): #rotate the x labels by 90 degree
 plt.tight_layout()
 #plt.show()
 plt.savefig(r'Results\%s.png' %("Coefficients"), bbox_inches='tight')
-
